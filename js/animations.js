@@ -6,17 +6,20 @@ $(document).ready(function() {
 
 
 	// show tweet actions only on hover
-	$('.tweet').hover(function () {
-		 $(this).find('.tweet-actions').first().fadeTo(1,1);
-	}, function () {
-		 $(this).find('.tweet-actions').first().fadeTo(1,0);
-	});
-
-	// show more info on click
-	$('.tweet').click(function () {
-		 $(this).find('.stats, .reply').slideToggle();
+	// need to do it this way so new tweets will inherit
+	$('body').on('mouseenter', '.tweet', function() {
+		$(this).find('.tweet-actions').first().fadeTo(1,1);
 	})
 
+	$('body').on('mouseleave', '.tweet', function() {
+		$(this).find('.tweet-actions').first().fadeTo(1,0);
+	})
+
+	// show stuff on click
+	// need to do it this way so new tweets will inherit
+	$('body').on('click', '.tweet', function() {
+		$(this).find('.stats, .reply').slideToggle();
+	})
 
 	// increase text box height and show buttons
 	$('.tweet-compose').click(function () {
@@ -45,7 +48,7 @@ $(document).ready(function() {
 	// add new tweet to the feed
 	$('#tweet-submit').click(function() {
 
-		var $myAvatar = $('#dashboard').find('img');
+		var $myAvatar = $('#dashboard').find('img').clone();
 		var myName = $('#dashboard').find('p').html();
 		var postedWhen = new Date();
 		var time = postedWhen.toLocaleTimeString().replace(/([\d]+:[\d]{2})(:[\d]{2})(.*)/, "$1$3");
@@ -104,8 +107,6 @@ $(document).ready(function() {
 }); // end of doc ready
 
 
-//  After I tweet, the profile picture disappears..... ???? 
 
-// need new tweet to be collapsed when posted, and need to respond to click/hover events
 
 // Black Diamond - times
